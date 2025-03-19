@@ -3,14 +3,16 @@
 #include <sstream> 
 #include <cstdio>
 
-const double G = 1.0;  // Gravitational constant
-const double dt = 0.5; // Time step
+//Gravity and time steps
+
+const double G = 1.0;  
+const double dt = 0.5; 
 
 using namespace std;
 
 struct Vector2D {
 
-    //Deals with how the vectors are added and subtracted, as well as how multiplication and division by scalars works
+    //How do vectors work?
 
     double x, y;
 
@@ -33,7 +35,7 @@ struct Vector2D {
 
 struct Planet {
 
-    // This structure 
+    // Planets exist
 
     double mass;
     Vector2D position;
@@ -60,7 +62,7 @@ struct Planet {
 
 class SolarSystem {
 
-    // This coordinates the interactions between the sun and each of the planets
+    // How do planet and Sun work?
 
     public:
     vector<Planet> planets;
@@ -69,13 +71,13 @@ class SolarSystem {
 
     SolarSystem(double size, const Planet& sun) : size(size), sun(sun) {}
 
-    // Adding different plants to the solarsystem
+    // new planet
 
     void AddPlanet(const Planet& planet) {
         planets.push_back(planet);
     }
 
-    // Moving planets
+    // move planet
 
     void UpdatePlanets() {
         for (auto& planet : planets) {
@@ -83,7 +85,7 @@ class SolarSystem {
         }
     }
 
-    // Applying gravity
+    // gravity exists
 
     void ApplyGravity() {
         for (auto& planet : planets) {
@@ -91,21 +93,21 @@ class SolarSystem {
         }
     }
 
-    // Storing each frame
+    // storing frame
 
     void StoreFrame(FILE* gnuplotPipe) {
         if (gnuplotPipe) {
-            // Plot the sun
+            // Plot Sun
             fprintf(gnuplotPipe, "%f %f\n", sun.position.x, sun.position.y);
             fprintf(gnuplotPipe, "e\n");
 
-            // Plot the planets
+            // Plot planet(s)
             for (const auto& planet : planets) {
                 fprintf(gnuplotPipe, "%f %f\n", planet.position.x, planet.position.y);
             }
             fprintf(gnuplotPipe, "e\n");
 
-            // Plot the trails of all planets
+            // Plot the trail(s)
             for (const auto& planet : planets) {
                 for (const auto& pos : planet.trail) {
                     fprintf(gnuplotPipe, "%f %f\n", pos.x, pos.y);
@@ -119,12 +121,10 @@ class SolarSystem {
 
 int main() {
 
-    // Creating sun and solar system
+    // Creating the sun and planets
 
     Planet sun(1e8, {0, 0}, {0, 0});
     SolarSystem solarSystem(10000, sun);
-
-    // Initialising planets
 
     Planet planet1(1e3, {-2000, -2000}, {80, -50});
     Planet planet2(1e3, {-2000, -2000}, {150, 0});
@@ -136,7 +136,7 @@ int main() {
     solarSystem.AddPlanet(planet3);
     solarSystem.AddPlanet(planet4);
     
-    // Simulating, plotting and saving as a gif
+    // Simulation, then save as gif
 
     FILE* gnuplotPipe = popen("gnuplot -persist", "w");
     if (gnuplotPipe) {
