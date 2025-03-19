@@ -3,7 +3,7 @@
 #include <sstream> 
 #include <cstdio>
 
-//Gravity and time steps
+//Gravity constant and time step
 
 const double G = 1.0;  
 const double dt = 0.5; 

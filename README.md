@@ -1,1 +1,1 @@
-A few interesting projects that I've worked on over the past few months
+Just a selection of (possibly) interesting projects that I've worked on
