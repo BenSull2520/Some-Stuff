@@ -107,7 +107,7 @@ class SolarSystem {
             }
             fprintf(gnuplotPipe, "e\n");
 
-            // Plot the trail(s)
+            // Plot the planet's trail(s)
             for (const auto& planet : planets) {
                 for (const auto& pos : planet.trail) {
                     fprintf(gnuplotPipe, "%f %f\n", pos.x, pos.y);
